@@ -24,7 +24,7 @@ export default function AuthPage() {
                             <TabsContent value="signin" className="space-y-4">
                                 <div className="space-y-2">
                                     <Label htmlFor="email">Email</Label>
-                                    <Input id="email" type="email" placeholder="m@example.com" />
+                                    <Input id="email" type="email" placeholder="johndoe@example.com" />
                                 </div>
                                 <div className="space-y-2">
                                     <Label htmlFor="password">Password</Label>
