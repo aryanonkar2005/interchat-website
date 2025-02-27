@@ -1,3 +1,3 @@
-#Interchat
+Interchat
 
 A secure chat application.
