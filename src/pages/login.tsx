@@ -10,7 +10,7 @@ import {Navbar} from "@/components/navbar-for-login-page.tsx";
 
 export default function AuthPage() {
     return (
-        <div className="flex min-h-screen flex-col">
+        <div className="flex min-h-[100svh] flex-col">
             <Navbar/>
             <main className="flex-1 flex items-center py-16">
                 <div className="container relative flex items-center justify-center">
