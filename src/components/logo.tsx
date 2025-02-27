@@ -14,9 +14,10 @@ export function Logo({ className, size = 24, withText = true }: LogoProps) {
     <div className={cn("flex items-center gap-4", className)}>
       <div className="relative">
         <img src="/interchat-white-no-bg.svg" className="mt-0.5" width={size} height={size}/>
+        <img src="/interchat-blue-no-bg.svg" className="mt-0.5 dark:hidden" width={size} height={size}/>
       </div>
       {withText && (
-        <span className="font-medium text-xl text-white">InterChat</span>
+        <span className="font-medium text-xl text-primary dark:text-white">InterChat</span>
       )}
     </div>
   );
