@@ -9,9 +9,13 @@ interface LogoProps {
   withText?: boolean;
 }
 
+const handleClick = () => {
+    window.location.href = "https://interchat.vercel.app";
+};
+
 export function Logo({ className, size = 24, withText = true }: LogoProps) {
   return (
-    <div className={cn("flex items-center gap-4", className)}>
+    <div onClick={handleClick} className={cn("flex items-center gap-4 cursor-pointer", className)}>
       <div className="relative">
         <img src="/interchat-white-no-bg.svg" className="sm:mt-0.5 hidden dark:block" width={size} height={size}/>
         <img src="/interchat-blue-no-bg.svg" className="sm:mt-0.5 dark:hidden" width={size} height={size}/>

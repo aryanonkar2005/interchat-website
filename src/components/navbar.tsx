@@ -3,7 +3,6 @@ import React from "react";
 import { Logo } from "./logo";
 import { ThemeToggle } from "./theme-toggle";
 import { Button } from "@/components/ui/button";
-import { LogIn } from "lucide-react";
 
 export function Navbar() {
   return (
