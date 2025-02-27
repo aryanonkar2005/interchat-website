@@ -2,7 +2,7 @@
 import React from "react";
 import { Logo } from "./logo";
 import { ThemeToggle } from "./theme-toggle";
-import { Button } from "@/components/ui/button";
+import { Button } from "@/components/ui/button.tsx";
 
 export function Navbar() {
   const loginBtnClicked = () => {
@@ -14,9 +14,6 @@ export function Navbar() {
         <Logo className="-ml-2 sm:ml-0"/>
         <div className="-mr-2 sm:mr-0 flex items-center gap-4">
           <ThemeToggle />
-          <Button className="text-white px-6 pb-[0.6rem]" onClick={loginBtnClicked}>
-            Sign In
-          </Button>
         </div>
       </div>
     </header>
