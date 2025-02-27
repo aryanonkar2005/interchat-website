@@ -6,7 +6,7 @@ import {FastForward, MonitorSmartphone, ShieldCheck} from "lucide-react";
 
 const Hero = () => {
   return (
-    <section className="w-full min-h-[calc(100vh-4rem)] max-h-screen flex items-center py-8 md:py-12">
+    <section className="w-full min-h-[calc(100svh-4rem)] max-h-screen flex items-center py-8 md:py-12">
       <div className="container px-6 md:px-8">
         <div className="flex gap-6 justify-center xl:justify-start mb-4">
           <div className="flex flex-col justify-center space-y-10">
