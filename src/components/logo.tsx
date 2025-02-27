@@ -21,7 +21,7 @@ export function Logo({ className, size = 24, withText = true }: LogoProps) {
         <img src="/interchat-blue-no-bg.svg" className="sm:mt-0.5 dark:hidden" width={size} height={size}/>
       </div>
       {withText && (
-        <span className="font-medium text-xl mt-[1px] text-primary dark:text-white">InterChat</span>
+        <span className="font-medium text-xl mt-[1px] text-primary dark:text-white select-none">InterChat</span>
       )}
     </div>
   );
