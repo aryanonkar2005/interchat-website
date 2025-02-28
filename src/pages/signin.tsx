@@ -7,15 +7,23 @@ import { Label } from "@/components/ui/label.tsx";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs.tsx";
 import { FaGoogle, FaGithub } from "react-icons/fa";
 import {Navbar} from "@/components/navbar-for-login-page.tsx";
+import {useLocation, useNavigate} from "react-router-dom";
 
 export default function AuthPage() {
+    const navigate = useNavigate();
+    const location = useLocation();
+    const tab = location.pathname.replace('/', '') || 'signin';
+
+    const handleTabChange = (value: string) => {
+        navigate(`/${value}`);
+    };
     return (
         <div className="flex min-h-[100svh] flex-col">
             <Navbar/>
             <main className="flex-1 flex items-center py-16">
                 <div className="container relative flex items-center justify-center">
                     <div className="mx-auto flex w-full flex-col justify-center space-y-6 sm:w-[350px]">
-                        <Tabs defaultValue="signin" className="w-full">
+                        <Tabs defaultValue="signin" onValueChange={handleTabChange} className="w-full">
                             <TabsList className="grid w-full grid-cols-2">
                                 <TabsTrigger value="signin">Sign In</TabsTrigger>
                                 <TabsTrigger value="signup">Sign Up</TabsTrigger>
