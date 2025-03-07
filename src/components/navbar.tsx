@@ -29,11 +29,11 @@ export function Navbar() {
                 setAuthStatus(authenticationStatus.AUTHENTICATED);
             }).catch(err => {
                 console.log(err)
-                setAuthStatus(authenticationStatus.AUTHENTICATED);
+                setAuthStatus(authenticationStatus.UNAUTHENTICATED);
             })
         } catch (e) {
             console.log(e)
-            setAuthStatus(authenticationStatus.AUTHENTICATED);
+            setAuthStatus(authenticationStatus.UNAUTHENTICATED);
         }
     }
     getLoggedInUser();
