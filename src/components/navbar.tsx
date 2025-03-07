@@ -120,7 +120,7 @@ export function Navbar() {
                                         <a className="capitalize text-foreground px-1">Theme: {theme}</a>
                                         <ChevronDown className="mr-0 ml-auto text-muted-foreground" size={20}/>
                                     </SelectTrigger>
-                                    <SelectContent className="ml-32 mt-36 z-30 shadow-lg dark:shadow-black bg-background border rounded-lg overflow-hidden">
+                                    <SelectContent className="ml-32 mt-40 z-30 shadow-lg dark:shadow-black bg-background border rounded-lg overflow-hidden">
                                         <SelectItem className="flex items-center text-left gap-4 outline-none py-2.5 px-4 dark:hover:bg-primary/50 hover:bg-primary/25" value="light">
                                             <Sun size={16} strokeWidth={1.5}/>
                                             <span>Light</span>
