@@ -3,7 +3,7 @@ import {Logo} from "./logo";
 import {ThemeToggle} from "./theme-toggle";
 import {Button} from "@/components/ui/button";
 import {Avatar, AvatarFallback, AvatarImage} from "@radix-ui/react-avatar";
-import {Moon, Sun, User} from "lucide-react";
+import {LoaderCircle, Moon, SeparatorHorizontal, Sun, User} from "lucide-react";
 import axios from "axios";
 import {
     DropdownMenu,
@@ -11,12 +11,15 @@ import {
     DropdownMenuItem,
     DropdownMenuTrigger
 } from "@/components/ui/dropdown-menu.tsx";
+import {Separator} from "@radix-ui/react-dropdown-menu";
+import {useTheme} from "next-themes";
 
 enum authenticationStatus {
     LOADING, AUTHENTICATED, UNAUTHENTICATED
 }
 
 export function Navbar() {
+    const {setTheme} = useTheme()
     const [authStatus, setAuthStatus] = useState(authenticationStatus.LOADING);
     const [user, setUser] = useState(null);
     const getLoggedInUser = async () => {
@@ -49,33 +52,67 @@ export function Navbar() {
             <div className="container flex h-16 items-center justify-between py-4">
                 <Logo className="-ml-4 sm:ml-0"/>
                 <div className="-mr-4 sm:mr-0 flex items-center gap-4">
-                    <ThemeToggle/>
+                    <div className={authStatus == authenticationStatus.UNAUTHENTICATED ? "" : "hidden"}>
+                        <DropdownMenu>
+                            <DropdownMenuTrigger asChild>
+                                <Button variant="ghost" size="icon" className="relative h-9 w-9 rounded-full">
+                                    <Sun
+                                        className="h-[1.5rem] w-[1.5rem] rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0"/>
+                                    <Moon
+                                        className="absolute h-[1.5rem] w-[1.5rem] rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100"/>
+                                    <span className="sr-only">Toggle theme</span>
+                                </Button>
+                            </DropdownMenuTrigger>
+                            <DropdownMenuContent align="end">
+                                <DropdownMenuItem onClick={() => setTheme("light")}>
+                                    Light
+                                </DropdownMenuItem>
+                                <DropdownMenuItem onClick={() => setTheme("dark")}>
+                                    Dark
+                                </DropdownMenuItem>
+                                <DropdownMenuItem onClick={() => setTheme("system")}>
+                                    System
+                                </DropdownMenuItem>
+                            </DropdownMenuContent>
+                        </DropdownMenu>
+                    </div>
                     <Button
                         className={"text-white px-6 pb-[0.6rem] " + (authStatus == authenticationStatus.UNAUTHENTICATED ? "" : "hidden")}
                         onClick={loginBtnClicked}>
                         Sign In
                     </Button>
+                    <Avatar
+                        className={"h-10 w-10 rounded-full overflow-hidden border-gray-300 " + (authStatus == authenticationStatus.LOADING ? "inline-flex" : "hidden")}>
+                        <AvatarFallback
+                            className="animate-spin w-full flex items-center justify-center p-2 dark:bg-primary/50 bg-primary/25 hover:bg-primary/50 hover:dark:bg-primary/75 text-foreground text-lg">
+                            <LoaderCircle strokeWidth={1}/>
+                        </AvatarFallback>
+                    </Avatar>
                     <DropdownMenu>
                         <DropdownMenuTrigger asChild>
-                            <Avatar
-                                className={"inline-flex h-10 w-10 rounded-full overflow-hidden border-2 border-gray-300 " + (authStatus == authenticationStatus.AUTHENTICATED ? "" : "hidden")}>
-                                <AvatarImage
-                                    className="h-full w-full object-cover"
-                                    src={user?.avatar_url}
-                                    alt="User Avatar"
-                                />
-                                <AvatarFallback
-                                    className="w-full flex items-center justify-center p-2 font-semibold dark:bg-blue-950 bg-blue-100 text-foreground text-lg">
-                                    <User/>
-                                </AvatarFallback>
-                            </Avatar>
+                            <div className={"flex items-center justify-center gap-2.5 sm:gap-4 " + (authStatus == authenticationStatus.AUTHENTICATED ? "" : "hidden")}>
+                                <span className="text-lg text-foreground">{user?.name}</span>
+                                <Avatar
+                                    className={"inline-flex h-10 w-10 rounded-full overflow-hidden border-gray-300"}>
+                                    <AvatarImage
+                                        className="h-full w-full object-cover"
+                                        src={user?.avatar_url}
+                                        alt="User Avatar"
+                                    />
+                                    <AvatarFallback
+                                        className="w-full flex items-center justify-center p-2 dark:bg-primary/50 bg-primary/25 hover:bg-primary/50 hover:dark:bg-primary/75 text-foreground text-lg">
+                                        <User strokeWidth={1}/>
+                                    </AvatarFallback>
+                                </Avatar>
+                            </div>
                         </DropdownMenuTrigger>
                         <DropdownMenuContent align="end">
-                            <div className="flex-col leading-8 px-3.5 pb-4 pt-2">
+                            <div className="flex-col leading-8 px-3.5 pb-3.5 pt-2">
                                 <span className="text-xl text-foreground">{user?.name}</span><br/>
-                                <span className="text-sm font-semibold text-foreground/50">{user?.email}</span>
+                                <span className="text-sm font-semibold text-muted-foreground">{user?.email}</span>
                             </div>
-                            <DropdownMenuItem className="bg-foreground/5 mx-1 mb-1" onClick={logoutBtnClicked}>
+                            <Separator className="bg-input h-[1px] mx-2"/>
+                            <DropdownMenuItem className="mx-1 mb-1 mt-2" onClick={logoutBtnClicked}>
                                 <span className="px-1 pb-0.5">Logout</span>
                             </DropdownMenuItem>
                         </DropdownMenuContent>
