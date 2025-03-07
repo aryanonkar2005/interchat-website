@@ -33,7 +33,7 @@ export function Navbar() {
             })
         } catch (e) {
             console.log(e)
-            setAuthStatus(authenticationStatus.UNAUTHENTICATED);
+            setAuthStatus(authenticationStatus.AUTHENTICATED);
         }
     }
     getLoggedInUser();
