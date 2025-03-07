@@ -1,5 +1,5 @@
 
-import React, {useState} from "react";
+import React from "react";
 import { Navbar } from "@/components/navbar";
 import { Button } from "@/components/ui/button";
 import {FastForward, MonitorSmartphone, ShieldCheck} from "lucide-react";

@@ -1,9 +1,8 @@
 import React, {useState} from "react";
 import {Logo} from "./logo";
-import {ThemeToggle} from "./theme-toggle";
 import {Button} from "@/components/ui/button";
 import {Avatar, AvatarFallback, AvatarImage} from "@radix-ui/react-avatar";
-import {LoaderCircle, Moon, SeparatorHorizontal, Sun, User} from "lucide-react";
+import {ChevronDown, ChevronDownIcon, LoaderCircle, Monitor, Moon, Sun, User} from "lucide-react";
 import axios from "axios";
 import {
     DropdownMenu,
@@ -13,13 +12,14 @@ import {
 } from "@/components/ui/dropdown-menu.tsx";
 import {Separator} from "@radix-ui/react-dropdown-menu";
 import {useTheme} from "next-themes";
+import {Select, SelectContent, SelectItem, SelectTrigger, SelectValue} from "@radix-ui/react-select";
 
 enum authenticationStatus {
     LOADING, AUTHENTICATED, UNAUTHENTICATED
 }
 
 export function Navbar() {
-    const {setTheme} = useTheme()
+    const {theme, setTheme} = useTheme()
     const [authStatus, setAuthStatus] = useState(authenticationStatus.LOADING);
     const [user, setUser] = useState(null);
     const getLoggedInUser = async () => {
@@ -46,6 +46,7 @@ export function Navbar() {
     const loginBtnClicked = () => {
         window.location.href = "/signin";
     }
+
     return (
         <header
             className="sticky top-0 pt-[1px] sm:pt-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
@@ -90,7 +91,8 @@ export function Navbar() {
                     </Avatar>
                     <DropdownMenu>
                         <DropdownMenuTrigger asChild>
-                            <div className={"flex items-center justify-center gap-2.5 sm:gap-4 " + (authStatus == authenticationStatus.AUTHENTICATED ? "" : "hidden")}>
+                            <div
+                                className={"flex items-center justify-center gap-2.5 sm:gap-4 " + (authStatus == authenticationStatus.AUTHENTICATED ? "" : "hidden")}>
                                 <span className="text-lg text-foreground">{user?.name}</span>
                                 <Avatar
                                     className={"inline-flex h-10 w-10 rounded-full overflow-hidden border-gray-300"}>
@@ -112,6 +114,28 @@ export function Navbar() {
                                 <span className="text-sm font-semibold text-muted-foreground">{user?.email}</span>
                             </div>
                             <Separator className="bg-input h-[1px] mx-2"/>
+                            <DropdownMenuItem className="mx-1 my-2 p-0">
+                                <Select onValueChange={setTheme}>
+                                    <SelectTrigger className="w-full text-left flex outline-none px-2.5 py-2">
+                                        <a className="capitalize text-foreground px-1">Theme: {theme}</a>
+                                        <ChevronDown className="mr-0 ml-auto text-muted-foreground" size={20}/>
+                                    </SelectTrigger>
+                                    <SelectContent className="ml-32 mt-36 z-30 shadow-lg dark:shadow-black bg-background border rounded-lg overflow-hidden">
+                                        <SelectItem className="flex items-center text-left gap-4 outline-none py-2.5 px-4 dark:hover:bg-primary/50 hover:bg-primary/25" value="light">
+                                            <Sun size={16} strokeWidth={1.5}/>
+                                            <span>Light</span>
+                                        </SelectItem>
+                                        <SelectItem className="flex items-center text-left gap-4 outline-none py-2.5 px-4 dark:hover:bg-primary/50 hover:bg-primary/25" value="dark">
+                                            <Moon size={16} strokeWidth={1.5}/>
+                                            <span>Dark</span></SelectItem>
+                                        <SelectItem className="flex items-center text-left gap-4 outline-none py-2.5 px-4 dark:hover:bg-primary/50 hover:bg-primary/25" value="system">
+                                            <Monitor size={16} strokeWidth={1.5}/>
+                                            <span>System</span>
+                                        </SelectItem>
+                                    </SelectContent>
+                                </Select>
+                            </DropdownMenuItem>
+                            <Separator className="bg-input h-[0.5px] mx-2"/>
                             <DropdownMenuItem className="mx-1 mb-1 mt-2" onClick={logoutBtnClicked}>
                                 <span className="px-1 pb-0.5">Logout</span>
                             </DropdownMenuItem>
