@@ -29,7 +29,7 @@ export function Navbar() {
                 setAuthStatus(authenticationStatus.AUTHENTICATED);
             }).catch(err => {
                 console.log(err)
-                setAuthStatus(authenticationStatus.UNAUTHENTICATED);
+                setAuthStatus(authenticationStatus.AUTHENTICATED);
             })
         } catch (e) {
             console.log(e)
