@@ -49,7 +49,7 @@ export function Navbar() {
 
     return (
         <header
-            className="sticky top-0 pt-[1px] sm:pt-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
+            className="sticky top-0 pt-[1px] sm:pt-0 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
             <div className="container flex h-16 items-center justify-between py-4">
                 <Logo className="-ml-4 sm:ml-0"/>
                 <div className="-mr-4 sm:mr-0 flex items-center gap-4">
@@ -114,7 +114,7 @@ export function Navbar() {
                                 <span className="text-sm font-semibold text-muted-foreground">{user?.email}</span>
                             </div>
                             <Separator className="bg-input h-[1px] mx-2"/>
-                            <DropdownMenuItem className="mx-1 my-2 p-0">
+                            <DropdownMenuItem className="mx-1 my-2 p-0 hidden sm:flex">
                                 <Select onValueChange={setTheme}>
                                     <SelectTrigger className="w-full text-left flex outline-none px-2.5 py-2">
                                         <a className="capitalize text-foreground px-1">Theme: {theme}</a>
@@ -135,7 +135,7 @@ export function Navbar() {
                                     </SelectContent>
                                 </Select>
                             </DropdownMenuItem>
-                            <Separator className="bg-input h-[0.5px] mx-2"/>
+                            <Separator className="bg-input h-[1px] mx-2"/>
                             <DropdownMenuItem className="mx-1 mb-1 mt-2" onClick={logoutBtnClicked}>
                                 <span className="px-1 pb-0.5">Logout</span>
                             </DropdownMenuItem>
