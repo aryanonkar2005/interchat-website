@@ -4,7 +4,7 @@ import {Button} from "@/components/ui/button";
 import {Label} from "@/components/ui/label";
 import {RadioGroup, RadioGroupItem} from "@/components/ui/radio-group";
 import {Avatar, AvatarFallback, AvatarImage} from "@radix-ui/react-avatar";
-import {ChevronDown, LoaderCircle, Monitor, Moon, Sun, User} from "lucide-react";
+import {ChevronDown, ChevronUp, LoaderCircle, Monitor, Moon, Sun, User} from "lucide-react";
 import axios from "axios";
 import {
     DropdownMenu,
@@ -32,6 +32,7 @@ export function Navbar() {
     const [authStatus, setAuthStatus] = useState(authenticationStatus.LOADING);
     const [user, setUser] = useState(null);
     const [themeDialogVisible, setThemeDialogVisible] = useState(false);
+    const [themeDropdownOpen, setThemeDropdownOpen] = useState(false);
     const getLoggedInUser = async () => {
         try {
             await axios.get('http://localhost:8080/api/user', {withCredentials: true}).then((response) => {
@@ -69,7 +70,10 @@ export function Navbar() {
                         <DialogTitle className="m-0 text-xl font-medium text-foreground">
                             Choose a theme
                         </DialogTitle>
-                        <RadioGroup className="flex flex-col gap-6 mt-7" onValueChange={setTheme}>
+                        <RadioGroup className="flex flex-col gap-6 mt-7" defaultValue={theme} onValueChange={(value)=>{
+                            setTheme(value)
+                            setThemeDialogVisible(false);
+                        }}>
                             {['light', 'dark', 'system'].map((theme) => (
                                 <div key={theme} className="flex items-center gap-4">
                                     <RadioGroupItem
@@ -158,13 +162,15 @@ export function Navbar() {
                                 Theme: {theme}
                             </DropdownMenuItem>
                             <DropdownMenuItem className="mx-1 my-2 p-0 hidden sm:flex">
-                                <Select onValueChange={setTheme}>
+                                <Select onOpenChange={(o)=>{
+                                    setThemeDropdownOpen(o)
+                                }} onValueChange={setTheme}>
                                     <SelectTrigger className="w-full text-left flex outline-none px-2.5 py-2">
                                         <a className="capitalize text-foreground px-1">Theme: {theme}</a>
-                                        <ChevronDown className="mr-0 ml-auto text-muted-foreground" size={20}/>
+                                        {themeDropdownOpen ? <ChevronUp className="mr-0 ml-auto text-muted-foreground" size={20}/> : <ChevronDown className="mr-0 ml-auto text-muted-foreground" size={20}/>}
                                     </SelectTrigger>
                                     <SelectContent
-                                        className="ml-32 mt-40 z-30 shadow-lg dark:shadow-black bg-background border rounded-lg overflow-hidden">
+                                        className="ml-32 mt-40 z-30 shadow-lg dark:shadow-black/50 bg-background border rounded-lg overflow-hidden">
                                         <SelectItem
                                             className="flex items-center text-left gap-4 outline-none py-2.5 px-4 dark:hover:bg-primary/50 hover:bg-primary/25"
                                             value="light">

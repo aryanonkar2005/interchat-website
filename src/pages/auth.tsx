@@ -114,6 +114,14 @@ export default function AuthPage() {
             displayToast("Email must contain @ symbol", ToastType.Error)
             return
         }
+        if(password.length < 8) {
+            displayToast("Password must be at least 8 characters long", ToastType.Error)
+            return
+        }
+        if(password.length > 32) {
+            displayToast("Password should not have more than 32 characters", ToastType.Error)
+            return
+        }
         try {
             await axios.post('http://localhost:8080/api/register', {
                 name: name,
@@ -127,6 +135,20 @@ export default function AuthPage() {
                 signUpNameRef.current.value = ''
                 signUpEmailRef.current.value = ''
                 signUpPasswordRef.current.value = ''
+                const login = async () => {
+                    await axios.post('http://localhost:8080/api/login', {
+                        email: email,
+                        password: password,
+                    }, {
+                        withCredentials:true,
+                        headers: {
+                            'Content-Type': 'application/json',
+                        }
+                    })
+                }
+                try{
+                    login()
+                }catch (ignored){ /* empty */ }
                 window.location.replace("http://localhost:8081/")
             }).catch(err => {
                 if (err.response.data.exception == "ConstraintViolationException") {
